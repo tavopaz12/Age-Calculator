@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { useEffect, useState } from "react";
 import "./App.scss";
 import ArrowIcon from "./assets/icon-arrow.svg";
@@ -42,7 +43,7 @@ function App() {
     setDiffAnio(diferenciAnios);
   });
 
-  const validateDay = (evt) => {
+  const handleInputDay = (evt) => {
     setDay(evt.target.value);
   };
 
@@ -54,7 +55,7 @@ function App() {
       return;
     }
 
-    if (day > fechaActual.date()) {
+    if (day > fechaUserInput.date()) {
       setInvalidDay(true);
       return;
     }
@@ -62,7 +63,7 @@ function App() {
     setInvalidDay(false);
   }, [day]);
 
-  const validateYear = (evt) => {
+  const handleInputYear = (evt) => {
     setAnio(evt.target.value);
   };
 
@@ -74,7 +75,7 @@ function App() {
       return;
     }
 
-    if (anio > fechaActual.year()) {
+    if (anio > fechaUserInput.year()) {
       setInvalidAnio(true);
       return;
     }
@@ -82,7 +83,7 @@ function App() {
     setInvalidAnio(false);
   });
 
-  const validateMes = (evt) => {
+  const handleInputMes = (evt) => {
     setMes(evt.target.value);
   };
 
@@ -94,7 +95,7 @@ function App() {
       return;
     }
 
-    if (mes > fechaActual.month() + 1) {
+    if (mes > fechaUserInput.month() + 1) {
       setInvalidMes(true);
       return;
     }
@@ -103,7 +104,17 @@ function App() {
   });
 
   useEffect(() => {
-    if (invalidAnio || invalidDay || invalidMes) {
+    if (invalidAnio) {
+      setError(true);
+      return;
+    }
+
+    if (invalidDay) {
+      setError(true);
+      return;
+    }
+
+    if (invalidMes) {
       setError(true);
       return;
     }
@@ -125,9 +136,9 @@ function App() {
                 type="number"
                 name=""
                 id=""
-                onChange={validateDay}
+                onChange={handleInputDay}
                 min={1}
-                max={fechaActual.date()}
+                max={31}
               />
               {invalidDay && (
                 <span className="info__error">Must be a valid day</span>
@@ -143,9 +154,9 @@ function App() {
                 type="number"
                 name=""
                 id=""
-                onChange={validateMes}
+                onChange={handleInputMes}
                 min={1}
-                max={fechaActual.month() + 1}
+                max={12}
               />
               {invalidMes && (
                 <span className="info__error">Must be a valid month</span>
@@ -161,8 +172,8 @@ function App() {
                 type="number"
                 name=""
                 id=""
-                onChange={validateYear}
-                min={1}
+                onChange={handleInputYear}
+                min={100}
                 max={fechaActual.year()}
               />
               {invalidAnio && (
@@ -182,19 +193,27 @@ function App() {
         <article className="results">
           <p className="text">
             <span className="text__purple">
-              {error ? 0 : diffAnio || diffAnio ? diffAnio : 0}
+              {error
+                ? 0
+                : Math.abs(diffAnio) || diffAnio
+                ? Math.abs(diffAnio)
+                : 0}
             </span>
             <span> years</span>
           </p>
           <p className="text">
             <span className="text__purple">
-              {error ? 0 : diffMes || diffMes ? diffMes : 0}
+              {error ? 0 : Math.abs(diffMes) || diffMes ? Math.abs(diffMes) : 0}
             </span>
             <span> months</span>
           </p>
           <p className="text">
             <span className="text__purple">
-              {error ? 0 : diffDays || diffDays ? diffDays : 0}
+              {error
+                ? 0
+                : Math.abs(diffDays) || diffDays
+                ? Math.abs(diffDays)
+                : 0}
             </span>
             <span> days</span>
           </p>
