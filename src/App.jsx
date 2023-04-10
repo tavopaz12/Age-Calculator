@@ -56,6 +56,11 @@ function App() {
       return;
     }
 
+    if (day > fechaUserInput.date()) {
+      setInvalidDay(true);
+      return;
+    }
+
     setInvalidDay(false);
   }, [day]);
 
