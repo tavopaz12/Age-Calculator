@@ -56,11 +56,6 @@ function App() {
       return;
     }
 
-    if (day > fechaUserInput.date()) {
-      setInvalidDay(true);
-      return;
-    }
-
     setInvalidDay(false);
   }, [day]);
 
@@ -76,11 +71,6 @@ function App() {
       return;
     }
 
-    if (anio > fechaUserInput.year()) {
-      setInvalidAnio(true);
-      return;
-    }
-
     setInvalidAnio(false);
   });
 
@@ -92,11 +82,6 @@ function App() {
     const max = 12;
 
     if (mes > max) {
-      setInvalidMes(true);
-      return;
-    }
-
-    if (mes > fechaUserInput.month() + 1) {
       setInvalidMes(true);
       return;
     }
