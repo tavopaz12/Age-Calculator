@@ -29,6 +29,7 @@ function App() {
       moment(fechaUserInput),
       "days"
     );
+
     const diferenciaMeses = moment(fechaActual).diff(
       moment(fechaUserInput),
       "months"
@@ -38,8 +39,8 @@ function App() {
       "years"
     );
 
-    setDiffDays(diferenciaDias);
-    setDiffMes(diferenciaMeses);
+    setDiffDays(diferenciaDias - diferenciAnios * 365);
+    setDiffMes(12 * diferenciAnios - diferenciaMeses);
     setDiffAnio(diferenciAnios);
   });
 
